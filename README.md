@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NaviFi — Liquidity Autopilot for Saros DLMM
 
-## Getting Started
+NaviFi is a developer-friendly project that simplifies liquidity management on **Solana** by integrating with **Saros DLMM (Dynamic Liquidity Market Maker)**. Think of it as a **co-pilot** for liquidity providers (LPs): it helps select bins, rebalance liquidity, run strategies, and visualize performance.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- **Automated LP Management**: Smart strategies for bin selection and rebalancing.
+- **Analytics Dashboard**: Monitor LP positions, fees, and yields in real time.
+- **Backtesting Tools**: Simulate strategies on historical price data.
+- **Telegram Bot Integration**: Alerts + one-click transactions.
+- **Developer Friendly**: Built on Next.js, TypeScript, and Saros DLMM SDK.
+
+---
+
+## 📖 Key Concepts
+
+- **DeFi**: Decentralized finance, powered by smart contracts.
+- **LP (Liquidity Provider)**: A user who deposits tokens into a pool.
+- **Liquidity Pool**: A smart contract holding tokens (e.g., SOL + USDC).
+- **LP Position**: Your share of the pool (tracked with LP tokens).
+- **Saros DLMM**: A liquidity model with **bins** (price levels) for efficient capital allocation.
+- **DLMM Bin**: A container for liquidity at a specific price.
+- **Rebalancing**: Moving liquidity between bins as markets shift.
+- **Backtesting**: Running a strategy on past data.
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend**: Next.js 13+, React, Tailwind CSS
+- **Backend**: Node.js, Express/Fastify
+- **Blockchain SDKs**: `@saros-finance/dlmm-sdk`, `@solana/web3.js`
+- **Database**: PostgreSQL / MongoDB (optional)
+- **Deployment**: Vercel, Docker, or custom infra
+
+---
+
+## ⚙️ Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+navifi/
+├─ frontend/                     # Next.js app
+│  ├─ app/                       # App router (Next.js 13+)
+│  │  ├─ layout.tsx              # Global layout
+│  │  ├─ page.tsx                # Dashboard landing
+│  │  ├─ api/                    # API routes
+│  │  │  ├─ pool/                # Pool data endpoints
+│  │  │  ├─ rebalance/           # Strategy logic endpoints
+│  │  │  └─ backtest/            # Backtesting endpoints
+│  ├─ components/                # Reusable UI
+│  │  ├─ WalletConnect.tsx
+│  │  ├─ BinChart.tsx
+│  │  └─ PositionCard.tsx
+│  ├─ hooks/                     # React hooks
+│  │  ├─ useWallet.ts
+│  │  └─ useSaros.ts
+│  ├─ lib/                       # Utilities
+│  │  ├─ sarosClient.ts
+│  │  └─ strategies.ts
+│  └─ styles/                    # Global styles
+│
+├─ backend/                      # Node.js API & workers
+│  ├─ src/
+│  │  ├─ index.ts                # Server entry
+│  │  ├─ routes/                 # API endpoints
+│  │  │  ├─ pool.ts
+│  │  │  ├─ rebalance.ts
+│  │  │  └─ tx.ts
+│  │  ├─ services/               # Business logic
+│  │  │  ├─ rebalanceService.ts
+│  │  │  └─ backtestService.ts
+│  │  ├─ utils/                  # Helpers
+│  │  │  └─ connection.ts
+│  │  └─ db.ts                   # DB connection
+│
+├─ scripts/                      # CLI tools
+│  ├─ backtest.ts
+│  └─ seedData.ts
+│
+├─ infra/                        # Deployment configs
+│  ├─ docker-compose.yml
+│  └─ vercel.json
+└─ README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚡ Quickstart
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Clone the repo
+git clone https://github.com/your-username/navifi.git
+cd navifi
 
-## Learn More
+# Install dependencies (frontend & backend)
+cd frontend && npm install
+cd ../backend && npm install
 
-To learn more about Next.js, take a look at the following resources:
+# Run frontend
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 Example: Fetching DLMM Bins
 
-## Deploy on Vercel
+```ts
+import { Connection, PublicKey } from "@solana/web3.js";
+import { DlmmClient } from "@saros-finance/dlmm-sdk";
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+const connection = new Connection("https://api.devnet.solana.com", "confirmed");
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+async function fetchBins(market: string) {
+  const dlmm = new DlmmClient(connection, new PublicKey(market));
+  const bins = await dlmm.getBins();
+  console.log(bins);
+}
+```
+
+---
+
+## 🎯 Why NaviFi?
+
+- **For LPs**: Reduce impermanent loss, maximize returns.
+- **For Developers**: Real-world demo of Saros DLMM SDK.
+- **For Hackathons**: Scalable, innovative, and easy to extend.
+
+---
+📌 In short: **NaviFi is your autopilot for liquidity management on Solana.**
+```
