@@ -7,17 +7,23 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ConnectWallet from "./ConnectWallet";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function Hero() {
   const { connected } = useWallet();
   const router = useRouter();
-  const [showWalletOptions, setShowWalletOptions] = useState(false);
+  const [showWalletDialog, setShowWalletDialog] = useState(false);
 
   const handleLaunchApp = () => {
     if (connected) {
       router.push("/app");
     } else {
-      setShowWalletOptions(true);
+      setShowWalletDialog(true);
     }
   };
 
@@ -71,12 +77,15 @@ export default function Hero() {
           </Button>
         </div>
 
-        {/* Wallet modal (reuse ConnectWallet dialog) */}
-        {showWalletOptions && !connected && (
-          <div className="mt-4 flex justify-center">
+        {/* Wallet Dialog */}
+        <Dialog open={showWalletDialog} onOpenChange={setShowWalletDialog}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Connect your wallet</DialogTitle>
+            </DialogHeader>
             <ConnectWallet />
-          </div>
-        )}
+          </DialogContent>
+        </Dialog>
 
         {/* Stats */}
         <HeroStats />
