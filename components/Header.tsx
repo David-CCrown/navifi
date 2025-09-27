@@ -18,12 +18,17 @@ export default function Header() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 font-bold text-xl text-foreground hover:text-primary transition-colors"
+          className="flex items-center gap-2 font-bold text-xl hover:opacity-90 transition-opacity"
         >
           <Image src="/navifi-logo.png" alt="NaviFi" width={32} height={32} />
-          <span className="bg-gradient-to-r from-chart-2 to-chart-3 bg-clip-text text-transparent">
+
+          {/* Option 1: Gradient same as logo */}
+          <span className="hidden sm:inline bg-gradient-to-r from-chart-2 to-chart-3 bg-clip-text text-transparent">
             NaviFi
           </span>
+
+          {/* Option 2: Plain white (swap with the above if you prefer white) */}
+          {/* <span className="hidden sm:inline text-white">NaviFi</span> */}
         </Link>
 
         {/* Desktop Nav */}

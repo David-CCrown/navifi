@@ -3,8 +3,24 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import HeroStats from "./HeroStats";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import ConnectWallet from "./ConnectWallet";
 
 export default function Hero() {
+  const { connected } = useWallet();
+  const router = useRouter();
+  const [showWalletOptions, setShowWalletOptions] = useState(false);
+
+  const handleLaunchApp = () => {
+    if (connected) {
+      router.push("/app");
+    } else {
+      setShowWalletOptions(true);
+    }
+  };
+
   return (
     <section className="relative overflow-hidden bg-background">
       {/* Background gradient matching logo */}
@@ -41,6 +57,7 @@ export default function Hero() {
         <div className="mt-6 flex justify-center gap-4">
           <Button
             size="lg"
+            onClick={handleLaunchApp}
             className="rounded-full bg-gradient-to-r from-[#1cc7e7] to-[#0070f3] text-white shadow-lg hover:shadow-xl transition-transform hover:scale-[1.02]"
           >
             Launch App
@@ -54,17 +71,12 @@ export default function Hero() {
           </Button>
         </div>
 
-        {/* Powered by Saros */}
-        {/* <div className="mt-6 flex items-center justify-center space-x-2 text-sm text-muted-foreground">
-          <span>Powered by</span>
-          <Image
-            src="/saros-logo.png"
-            alt="Saros"
-            className="h-6 w-auto"
-            width={80}
-            height={80}
-          />
-        </div> */}
+        {/* Wallet modal (reuse ConnectWallet dialog) */}
+        {showWalletOptions && !connected && (
+          <div className="mt-4 flex justify-center">
+            <ConnectWallet />
+          </div>
+        )}
 
         {/* Stats */}
         <HeroStats />
