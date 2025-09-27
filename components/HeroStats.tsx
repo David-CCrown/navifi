@@ -3,17 +3,17 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { label: "Total Volume", value: "$2.5M+", color: "from-chart-2 to-chart-3" },
-  { label: "Active LPs", value: "1.2K+", color: "from-chart-3 to-chart-4" },
-  { label: "Supported Pools", value: "8+", color: "from-chart-4 to-chart-5" },
-  { label: "Uptime", value: "99.9%", color: "from-chart-5 to-chart-2" },
+  { label: "Total Volume", value: "$2.5M+" },
+  { label: "Active LPs", value: "1.2K+" },
+  { label: "Supported Pools", value: "8+" },
+  { label: "Uptime", value: "99.9%" },
 ];
 
 export default function HeroStats() {
   return (
     <section className="relative py-20">
-      {/* subtle gradient background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-chart-2/10 via-transparent to-chart-3/10 blur-3xl" />
+      {/* Subtle background using NaviFi gradient */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#1cc7e7]/10 via-transparent to-[#0070f3]/10 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 text-center">
@@ -24,10 +24,10 @@ export default function HeroStats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="rounded-2xl border border-border bg-card/70 backdrop-blur-sm p-6 shadow-sm"
+              className="rounded-2xl border border-border bg-card/70 backdrop-blur-sm p-6 shadow-sm hover:shadow-lg transition-shadow"
             >
               <p
-                className={`text-2xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
+                className="text-2xl font-bold bg-gradient-to-r from-[#1cc7e7] to-[#0070f3] bg-clip-text text-transparent"
               >
                 {stat.value}
               </p>
