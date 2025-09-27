@@ -47,14 +47,14 @@ const Footer = () => {
           {/* Social + Theme */}
           <div className="flex items-center gap-4">
             <Link
-              href="https://twitter.com"
+              href="https://x.com/navifiapp"
               target="_blank"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
               <Twitter size={18} />
             </Link>
             <Link
-              href="https://github.com"
+              href="https://github.com/David-CCrown/navifi"
               target="_blank"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
