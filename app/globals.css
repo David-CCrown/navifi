@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -113,6 +114,12 @@
 }
 
 @layer base {
+  html, body {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-snap-type: proximity;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -120,3 +127,4 @@
     @apply bg-background text-foreground;
   }
 }
+
